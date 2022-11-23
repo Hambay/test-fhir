@@ -1,0 +1,26 @@
+<div class="wrapper">
+
+  <div class="contaner">
+
+    <div class="patient" *ngFor="let patient of patients$ | async">
+
+      <p-card>
+
+        <ng-template pTemplate="title">
+          {{ patient.name?.[0].fullName }}
+        </ng-template>
+        <p>Gender: {{ patient.gender | titlecase }}</p>
+        <p>Birthday: {{ patient.birthDate | date }}</p>
+        
+        <div class="patient__appointments">
+          <app-patient-appointments [appointments]="patient.appointments">
+          </app-patient-appointments>
+        </div>
+
+      </p-card>
+
+    </div>
+
+  </div>
+
+</div>

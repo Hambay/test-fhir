@@ -1,0 +1,19 @@
+.title {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+.badge {
+  margin-left: 0.5rem;
+}
+.appointments {
+  &__item {
+    padding: 6px 0;
+    border-top: 1px solid var(--surface-border);
+    &__start {
+      font-size: 1.1rem;
+    }
+    &__description {
+      font-style: italic;
+    }
+  }
+}

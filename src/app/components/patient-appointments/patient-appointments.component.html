@@ -1,0 +1,18 @@
+<span class="title">Appointments</span>
+
+<p-badge class="badge" [value]="appointments.length + ''"></p-badge>
+
+<div class="appointments">
+
+  <div class="appointments__item" *ngFor="let appointment of appointments">
+
+    <div class="appointments__item__start">
+      Date of admission: {{ appointment.start | date }}
+    </div>
+    <div class="appointments__item__description">
+      {{ appointment.description }}
+    </div>
+
+  </div>
+
+</div>
