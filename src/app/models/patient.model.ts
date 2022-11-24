@@ -9,7 +9,7 @@ import { Resource } from './resource.model';
 
 export class Patient extends Resource {
   @Equals(ResourceType.Patient)
-  override resourceType: ResourceType;
+  override resourceType: ResourceType.Patient;
 
   @IsOptional()
   @IsBoolean()

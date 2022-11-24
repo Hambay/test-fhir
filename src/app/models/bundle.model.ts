@@ -1,22 +1,23 @@
 import { Equals, IsArray, IsEnum } from 'class-validator';
 import { BundleType } from '../enums/bundle-type.enum';
 import { ResourceType } from '../enums/resourse-type.enum';
+import { Resources } from '../unions/resources.union';
 import { BundleEntry } from './bundle-entry.model';
 import { Resource } from './resource.model';
 
 export class Bundle extends Resource {
   @Equals(ResourceType.Bundle)
-  override resourceType: ResourceType;
+  override resourceType: ResourceType.Bundle;
 
   @IsEnum(BundleType)
   type: BundleType;
 
   @IsArray()
-  entry: BundleEntry<Resource>[];
+  entry: BundleEntry<Resources>[];
 
   constructor(
     dto: Bundle,
-    entryFactory: (item: Resource) => Resource
+    entryFactory: (item: Resources) => Resources
   ) {
     super(dto);
 

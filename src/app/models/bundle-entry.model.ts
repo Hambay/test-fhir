@@ -1,7 +1,7 @@
 import { IsUrl, ValidateNested } from 'class-validator';
-import { Resource } from './resource.model';
+import { Resources } from '../unions/resources.union';
 
-export class BundleEntry<TResource extends Resource> {
+export class BundleEntry<TResource extends Resources> {
   @ValidateNested()
   resource: TResource;
 
@@ -10,7 +10,7 @@ export class BundleEntry<TResource extends Resource> {
 
   constructor(
     dto: BundleEntry<TResource>,
-    entryFactory: (item: Resource) => TResource
+    entryFactory: (item: Resources) => TResource
   ) {
     this.resource = entryFactory(dto.resource);
     this.fullUrl = dto.fullUrl;

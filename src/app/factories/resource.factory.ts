@@ -4,6 +4,7 @@ import { Appointment } from '../models/appointment.model';
 import { Bundle } from '../models/bundle.model';
 import { Patient } from '../models/patient.model';
 import { Resource } from '../models/resource.model';
+import { Resources } from '../unions/resources.union';
 
 @Injectable({
   providedIn: 'root'
@@ -11,19 +12,19 @@ import { Resource } from '../models/resource.model';
 export class ResourceFactory {
   constructor() {}
 
-  create(dto: Resource) {
+  create(dto: Resources): Resources {
     switch (dto.resourceType) {
       case ResourceType.Patient:
-        return new Patient(dto as Patient);
+        return new Patient(dto);
     
       case ResourceType.Appointment:
-        return new Appointment(dto as Appointment);
+        return new Appointment(dto);
     
       case ResourceType.Bundle:
-        return new Bundle(dto as Bundle, this.create);
+        return new Bundle(dto, this.create);
 
       default:
-        throw new Error(`unknown resourceType: ${dto.resourceType}`);
+        throw new Error(`unknown resourceType`);
     }
   }
 }

@@ -7,7 +7,7 @@ import { Resource } from './resource.model';
 
 export class Appointment extends Resource {
   @Equals(ResourceType.Appointment)
-  override resourceType: ResourceType;
+  override resourceType: ResourceType.Appointment;
 
   @IsEnum(AppointmentStatus)
   status: AppointmentStatus;
