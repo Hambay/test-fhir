@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/
 import { Subject, switchMap, takeUntil, tap } from 'rxjs';
 import { Patient } from './models/patient.model';
 import { AppointmentApiService } from './services/appointment/appointment-api.service';
+import { AppointmentService } from './services/appointment/appointment.service';
 import { PatientStateService } from './services/patient/patient-state.service';
 import { PatientService } from './services/patient/patient.service';
 
@@ -18,7 +19,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   constructor(
     private patientService: PatientService,
-    private appointmentApiService: AppointmentApiService,
+    private appointmentService: AppointmentService,
     private patientStateService: PatientStateService,
   ) {}
 
@@ -36,7 +37,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   getAppointments() {
-    this.appointmentApiService.getAppointments$().pipe(
+    this.appointmentService.getAppointments$().pipe(
       tap(console.log),
       switchMap(appointments => {
         return this.patientService.getPatientsByAppointments$(appointments)

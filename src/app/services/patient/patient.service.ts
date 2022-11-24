@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { combineLatest, map, Observable, tap } from 'rxjs';
+import { catchError, combineLatest, map, Observable, of, tap } from 'rxjs';
 import { ResourceType } from 'src/app/enums/resourse-type.enum';
 import { Appointment } from 'src/app/models/appointment.model';
 import { Patient } from 'src/app/models/patient.model';
+import { validateClass } from 'src/app/utils/operators/validate.operator';
 import { PatientApiService } from './patient-api.service';
 import { PatientStateService } from './patient-state.service';
 
@@ -17,7 +18,21 @@ export class PatientService {
   ) {}
 
   getPatient$(id: string): Observable<Patient | undefined> {
-    return this.patientApiService.getPatient$(id);
+    return this.patientApiService.getPatient$(id).pipe(
+      map(dto => {
+        return new Patient(dto);
+      }),
+      validateClass,
+      map(([item, errors]) => {
+        if (errors.length) throw errors
+
+        return item;
+      }),
+      catchError(error => {
+        console.error(error);
+        return of(undefined);
+      })
+    );
   }
 
   getPatientsByAppointments$(appointments: Appointment[]): Observable<Patient[]> {

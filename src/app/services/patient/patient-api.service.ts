@@ -26,19 +26,6 @@ export class PatientApiService {
 
     return this.http.get<Patient>(`${this.url}/${reference}`).pipe(
       retry({ count: 2, delay: 3000}),
-      map(dto => {
-        return new Patient(dto);
-      }),
-      validateClass,
-      map(([item, errors]) => {
-        if (errors.length) throw errors
-
-        return item;
-      }),
-      catchError(error => {
-        console.error(error);
-        return of(undefined);
-      })
-    )
+    );
   }
 }
